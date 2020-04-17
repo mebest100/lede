@@ -10,8 +10,7 @@
 name: OpenWrt-CI
 
 on:
-  schedule:
-    - cron: 0 20 * * *
+
   push:
     tags:
       - '*'
@@ -69,8 +68,11 @@ jobs:
           du -h --max-depth=1 ./build_dir
           du -h --max-depth=1 ./bin
 
+      - name: Compile ssr-plus ipk
+        run: make package/lean/luci-app-ssr-plus/compile V=s
+		
       - name: Prepare artifact
-        run: find ./bin/targets/ -type d -name "packages" | xargs rm -rf {}
+        run: find ./bin/packages/  -name '*ssr*.ipk' | xargs cp ./bin/targets/
 
       - name: Upload artifact
         uses: actions/upload-artifact@master
