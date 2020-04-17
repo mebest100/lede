@@ -69,7 +69,7 @@ jobs:
 
       - name: Compile ssr-plus ipk
         run: make package/lean/luci-app-ssr-plus/compile V=s
-		
+
       - name: Prepare artifact
         run: find ./bin/packages/  -name '*ssr*.ipk' | xargs cp ./bin/targets/
 
