@@ -11,11 +11,8 @@ name: OpenWrt-CI
 
 on:
   watch:
-    types: started
+    types: [started]
     
-  push:
-    tags:
-      - '*'
 
 jobs:
 
