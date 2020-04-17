@@ -68,7 +68,9 @@ jobs:
           du -h --max-depth=1 ./bin
 
       - name: Compile ssr-plus ipk
-        run: make package/lean/luci-app-ssr-plus/compile V=s
+        run: |
+          make target/linux/compile V=s 
+          make package/lean/luci-app-ssr-plus/compile V=s
 
       - name: Prepare artifact
         run: find ./bin/packages/  -name '*ssr*.ipk' | xargs cp ./bin/targets/
