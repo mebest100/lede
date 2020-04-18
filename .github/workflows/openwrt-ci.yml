@@ -10,6 +10,9 @@
 name: OpenWrt-CI
 
 on:
+  push:
+    tags: 
+      - '*'
   watch:
     types: [started]
     
@@ -66,16 +69,14 @@ jobs:
           du -h --max-depth=1 ./ --exclude=build_dir --exclude=bin
           du -h --max-depth=1 ./build_dir
           du -h --max-depth=1 ./bin
-
-      - name: Compile ssr-plus ipk
-        run: |
-          make target/linux/compile V=s 
-          make package/lean/luci-app-ssr-plus/compile V=s
-
-      - name: Prepare artifact
-        run: find ./bin/packages/  -name '*ssr*.ipk' | xargs cp ./bin/targets/
-
-      - name: Upload artifact
+       
+      - name: Upload OpenWrt_ipk
+        uses: actions/upload-artifact@master
+        with:
+          name: OpenWrt_ipk
+          path: ./bin/packages/
+     
+      - name: Upload OpenWrt_firmware
         uses: actions/upload-artifact@master
         with:
           name: OpenWrt_firmware
